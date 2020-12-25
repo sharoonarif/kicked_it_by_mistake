@@ -29,6 +29,10 @@ class MyApp extends StatelessWidget {
 class KickedItByMistake extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return GameScreen();
+    return Stack(
+      children: [
+        GameScreen()
+      ]
+    );
   }
 }

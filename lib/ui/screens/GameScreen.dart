@@ -8,6 +8,10 @@ class GameScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final gameEngine = Provider.of<GameEngine>(context);
 
-    return Container();
+    return Container(
+      height: 100,
+      width: 200,
+      color: Colors.amberAccent
+    );
   }
 }
