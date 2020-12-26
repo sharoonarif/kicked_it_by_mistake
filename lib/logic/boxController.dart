@@ -1,30 +1,37 @@
 import 'package:forge2d/forge2d.dart';
 import 'package:kicked_it_by_mistake/logic/constants.dart';
-import 'package:kicked_it_by_mistake/logic/worldController.dart';
-import 'package:kicked_it_by_mistake/models/BoxModel.dart';
+import 'package:kicked_it_by_mistake/logic/gameEngine.dart';
+import 'package:kicked_it_by_mistake/models/boxModel.dart';
 import 'package:rxdart/rxdart.dart';
 
 class BoxController {
   BehaviorSubject<List<BoxModel>> boxes;
-  final WorldController _worldController;
+  final GameEngine _gameEngine;
 
-  BoxController(this._worldController) {
+  BoxController(this._gameEngine) {
     boxes = BehaviorSubject.seeded([]);
 
-    final double halfBoxWidth = 140;
-    final double halfBoxHeight = 70;
+    final double halfBoxWidth = 100 * Constants.pixelsToMeters;
+    final double halfBoxHeight = 40 * Constants.pixelsToMeters;
 
     final boxBodyDef = BodyDef();
     boxBodyDef.type = BodyType.DYNAMIC;
-    boxBodyDef.position.setFrom(Vector2((Constants.screenWidth / 2) - halfBoxWidth, (Constants.screenHeight / 2) - halfBoxHeight));
+    boxBodyDef.position.setFrom(Vector2(((Constants.screenWidth / 2) * Constants.pixelsToMeters) - halfBoxWidth, ((Constants.screenHeight / 2) * Constants.pixelsToMeters) - halfBoxHeight));
 
-    final boxBody = _worldController.world.createBody(boxBodyDef);
+    final boxBody = _gameEngine.world.createBody(boxBodyDef);
+
     final boxShape = PolygonShape();
 
     boxShape.setAsBox(halfBoxWidth, halfBoxHeight, Vector2(halfBoxWidth, halfBoxHeight), 0);
-    boxBody.createFixtureFromShape(boxShape);
+    
+    final boxFixtureDef = FixtureDef();
+    boxFixtureDef.setDensity(0.5);
+    boxFixtureDef.setRestitution(0.3);
+    boxFixtureDef.setShape(boxShape);
 
-    boxes.add([BoxModel(halfBoxHeight * 2, halfBoxWidth * 2, boxBody)]);
+
+    boxBody.createFixture(boxFixtureDef);
+    boxes.add([BoxModel(halfBoxHeight * 2, halfBoxWidth * 2, boxBody, boxShape)]);
   }
 
   dispose() {
