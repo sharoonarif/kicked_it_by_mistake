@@ -30,16 +30,14 @@ class BoxModel {
     var impactY = pointOfImpact.y;
 
     var madeUpCenter = Vector2(
-      originX + localCenterX + localCenterX,
-      originY + localCenterY,
+      1, 1
+      //body.worldCenter.y
     );
-    // body.applyLinearImpulse(Vector2(30,80), Vector2(bodyOrigin.x, bodyOrigin.y), true);
-    // body.applyLinearImpulse(Vector2(0, 40), body.position, true);
-      // body.applyForce(Vector2(0, 1000), Vector2( 10, 10));
-// 
-    // body.applyAngularImpulse(100);
-    // body.applyTorque(100);
-    body.applyForce(Vector2(0, 10000), body.position);
+
+    debugPrint("Body Center: (${body.worldCenter.x}, ${body.worldCenter.y})");
+    debugPrint("Body Origin: (${body.position.x}, ${body.position.y})");
+
+    body.applyLinearImpulse(Vector2(-10,0), madeUpCenter, true);
   }
 
   void accelerate() {
