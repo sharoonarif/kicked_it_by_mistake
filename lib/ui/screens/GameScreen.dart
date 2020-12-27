@@ -22,7 +22,11 @@ class GameScreen extends StatelessWidget {
           stream: gameEngine.gameLoop,
           builder: (_, __) =>
             boxController.boxes.value.isEmpty ? SizedBox.shrink() :
-              Box(boxController.boxes.value.first)
+            Stack(
+              children: boxController.boxes.value.map((b) =>
+                Box(b)
+              ).toList()
+            )
         )
       ]
     );

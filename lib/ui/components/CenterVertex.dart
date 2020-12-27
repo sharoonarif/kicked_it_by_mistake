@@ -1,0 +1,27 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:forge2d/forge2d.dart' show Vector2;
+import 'package:kicked_it_by_mistake/logic/constants.dart';
+
+class CenterVertex extends StatelessWidget {
+  final Vector2 _bodyCenter;
+  final double radius = 2;
+
+  const CenterVertex(this._bodyCenter);
+  
+  @override
+  Widget build(BuildContext context) {
+    var left = _bodyCenter.x * Constants.metersToPixels;
+    var bottom = _bodyCenter.y * Constants.metersToPixels;
+
+    return Positioned(
+      left: left,
+      bottom: bottom,
+      child: Container(
+        width: radius * 2,
+        height: radius * 2,
+        color: Colors.white
+      )
+    );
+  }
+}
