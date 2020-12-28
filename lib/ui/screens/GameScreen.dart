@@ -18,6 +18,7 @@ class GameScreen extends StatelessWidget {
         Box(worldController.floor),
         Box(worldController.leftWall),
         Box(worldController.rightWall),
+        Box(worldController.roof),
         StreamBuilder(
           stream: gameEngine.gameLoop,
           builder: (_, __) =>

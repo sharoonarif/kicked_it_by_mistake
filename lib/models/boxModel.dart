@@ -9,9 +9,10 @@ class BoxModel {
   final double width;
   final Body body;
   final Shape shape;
+  Function(BoxModel) destroy;
   Color color;
 
-  BoxModel(this.height, this.width, this.body, [this.shape]) {
+  BoxModel(this.height, this.width, this.body, [this.shape, this.destroy]) {
     color = Color((Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0);
   }
 

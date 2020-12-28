@@ -12,19 +12,20 @@ class Box extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var isDynamic = box.body.getType() == BodyType.DYNAMIC;
-    var bodyCenterXPX = box.body.worldCenter.x * Constants.metersToPixels;
-    var bodyCenterYPX = box.body.worldCenter.y * Constants.metersToPixels;
+    final isDynamic = box.body.getType() == BodyType.DYNAMIC;
+    final bodyCenterXPX = box.body.worldCenter.x * Constants.metersToPixels;
+    final bodyCenterYPX = box.body.worldCenter.y * Constants.metersToPixels;
 
     return Stack(
       children: [
         Positioned(
-            left: isDynamic ? bodyCenterXPX - ((box.width / 2) * Constants.metersToPixels) : box.body.position.x * Constants.metersToPixels, // (bodyCenterXPX - (box.width / 2)) * Constants.metersToPixels,
-            bottom: isDynamic ? bodyCenterYPX - ((box.height / 2) * Constants.metersToPixels) : box.body.position.y * Constants.metersToPixels, // (bodyCenterXPX - (box.width / 2)) * Constants.metersToPixels,
+            left: isDynamic ? bodyCenterXPX - ((box.width / 2) * Constants.metersToPixels) : box.body.position.x * Constants.metersToPixels,
+            bottom: isDynamic ? bodyCenterYPX - ((box.height / 2) * Constants.metersToPixels) : box.body.position.y * Constants.metersToPixels,
             child: Transform.rotate(
                 angle: box.body.getAngle(),
                 child: GestureDetector(
                   onTapUp: box.jump,
+                  onLongPress: () => box.destroy(box),
                   child: Container(
                       color: box.color,
                       width: box.width * Constants.metersToPixels,

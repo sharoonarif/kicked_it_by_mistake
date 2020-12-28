@@ -6,6 +6,9 @@ import 'package:kicked_it_by_mistake/logic/gameEngine.dart';
 import 'package:kicked_it_by_mistake/models/boxModel.dart';
 import 'package:rxdart/rxdart.dart';
 
+
+const maxBoxes = 30;
+
 class BoxController {
   BehaviorSubject<List<BoxModel>> boxes;
   final GameEngine _gameEngine;
@@ -17,7 +20,15 @@ class BoxController {
   }
 
   void addBox(_) {
-       final double halfBoxWidth = 30 * Constants.pixelsToMeters;
+    if (boxes.value.length >= maxBoxes) {
+      final toRemove = boxes.value.length - maxBoxes - 1;
+
+      for (var i = 0; i < toRemove; i++) {
+        destroyBox(boxes.value.elementAt(i));
+      }
+    }
+
+    final double halfBoxWidth = 30 * Constants.pixelsToMeters;
     final double halfBoxHeight = 30 * Constants.pixelsToMeters;
     
     final boxBodyDef = BodyDef();
@@ -36,7 +47,18 @@ class BoxController {
     boxFixtureDef.setShape(boxShape);
     
     boxBody.createFixture(boxFixtureDef);
-    boxes.add([...boxes.value, BoxModel(halfBoxHeight * 2, halfBoxWidth * 2, boxBody, boxShape)]);
+
+    final currentBoxes = boxes.value;
+    currentBoxes.add(BoxModel(halfBoxHeight * 2, halfBoxWidth * 2, boxBody, boxShape, destroyBox));
+    boxes.add(currentBoxes);
+  }
+
+  destroyBox(BoxModel box) {
+    _gameEngine.world.destroyBody(box.body);
+    final currentBoxes = boxes.value;
+    currentBoxes.remove(box);
+
+    boxes.add(currentBoxes);
   }
 
   dispose() {

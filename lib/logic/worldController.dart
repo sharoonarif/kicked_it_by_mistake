@@ -9,16 +9,18 @@ class WorldController {
   BoxModel floor;
   BoxModel leftWall;
   BoxModel rightWall;
+  BoxModel roof;
   final GameEngine _gameEngine;
 
   WorldController(this._gameEngine) {
     createFloor();
     createWalls();
+    createRoof();
   }
 
   createFloor() {
     final double halfFloorWidth = (Constants.screenWidth / 2) * Constants.pixelsToMeters;
-    final double halfFloorHeight = 35 * Constants.pixelsToMeters;
+    final double halfFloorHeight = 10 * Constants.pixelsToMeters;
     
     final floorBodyDef = BodyDef();
     floorBodyDef.type = BodyType.STATIC;
@@ -34,9 +36,27 @@ class WorldController {
     floor = BoxModel(halfFloorHeight * 2, halfFloorWidth * 2, floorBody);
   }
 
+  createRoof() {
+    final double halfFloorWidth = (Constants.screenWidth / 2) * Constants.pixelsToMeters;
+    final double halfFloorHeight = 10 * Constants.pixelsToMeters;
+    
+    final floorBodyDef = BodyDef();
+    floorBodyDef.type = BodyType.STATIC;
+    floorBodyDef.position.setFrom(Vector2(0, (Constants.screenHeight * Constants.pixelsToMeters) - (2 * halfFloorHeight)));
+    
+    final floorBody = _gameEngine.world.createBody(floorBodyDef);
+
+    final floorShape = PolygonShape();
+    floorShape.setAsBox(halfFloorWidth, halfFloorHeight, Vector2(halfFloorWidth, halfFloorHeight), 0);
+
+    floorBody.createFixtureFromShape(floorShape);
+
+    roof = BoxModel(halfFloorHeight * 2, halfFloorWidth * 2, floorBody);
+  }
+
   createWalls() {
     final double halfWallHeight = (Constants.screenHeight / 2) * Constants.pixelsToMeters;
-    final double halfWallWidth = 18 * Constants.pixelsToMeters;
+    final double halfWallWidth = 10 * Constants.pixelsToMeters;
     
     final leftWallBodyDef = BodyDef();
     leftWallBodyDef.type = BodyType.STATIC;
