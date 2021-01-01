@@ -4,10 +4,11 @@ import 'package:forge2d/forge2d.dart' hide Timer;
 import 'package:kicked_it_by_mistake/logic/constants.dart';
 import 'package:kicked_it_by_mistake/logic/gameEngine.dart';
 import 'package:kicked_it_by_mistake/models/boxModel.dart';
+import 'package:kicked_it_by_mistake/utils/number.dart';
 import 'package:rxdart/rxdart.dart';
 
 
-const maxBoxes = 30;
+const maxBoxes = 16;
 
 class BoxController {
   BehaviorSubject<List<BoxModel>> boxes;
@@ -28,13 +29,16 @@ class BoxController {
       }
     }
 
-    final double halfBoxWidth = 30 * Constants.pixelsToMeters;
-    final double halfBoxHeight = 30 * Constants.pixelsToMeters;
+    final double halfBoxWidth = randomBetween(20, 60) * Constants.pixelsToMeters;
+    final double halfBoxHeight = randomBetween(20, 60) * Constants.pixelsToMeters;
     
     final boxBodyDef = BodyDef();
     boxBodyDef.type = BodyType.DYNAMIC;
-    boxBodyDef.position.setFrom(Vector2(((Constants.screenWidth / 2) * Constants.pixelsToMeters) - halfBoxWidth, ((Constants.screenHeight / 2) * Constants.pixelsToMeters) - halfBoxHeight));
-    
+    boxBodyDef.position.setFrom(Vector2(
+      ((Constants.screenWidth / 2) * Constants.pixelsToMeters) - halfBoxWidth, 
+      ((Constants.screenHeight) * Constants.pixelsToMeters) - (halfBoxHeight * 2)
+    ));
+
     final boxBody = _gameEngine.world.createBody(boxBodyDef);
     
     final boxShape = PolygonShape();

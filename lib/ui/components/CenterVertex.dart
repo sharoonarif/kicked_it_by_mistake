@@ -6,13 +6,14 @@ import 'package:kicked_it_by_mistake/logic/constants.dart';
 class CenterVertex extends StatelessWidget {
   final Vector2 _bodyCenter;
   final double radius = 2;
+  final Color _color;
 
-  const CenterVertex(this._bodyCenter);
+  const CenterVertex(this._bodyCenter, [this._color = Colors.white]);
   
   @override
   Widget build(BuildContext context) {
-    var left = _bodyCenter.x * Constants.metersToPixels;
-    var bottom = _bodyCenter.y * Constants.metersToPixels;
+    var left = (_bodyCenter.x * Constants.metersToPixels) - radius;
+    var bottom = (_bodyCenter.y * Constants.metersToPixels) - radius;
 
     return Positioned(
       left: left,
@@ -20,7 +21,10 @@ class CenterVertex extends StatelessWidget {
       child: Container(
         width: radius * 2,
         height: radius * 2,
-        color: Colors.white
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          color: _color
+        ),
       )
     );
   }
