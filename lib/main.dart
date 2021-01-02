@@ -43,7 +43,10 @@ class KickedItByMistake extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        GameScreen()
+        Container(
+          color: Colors.pink,
+          child: GameScreen()
+        )
       ]
     );
   }

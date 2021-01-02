@@ -5,7 +5,7 @@ import 'package:kicked_it_by_mistake/logic/constants.dart';
 
 class CenterVertex extends StatelessWidget {
   final Vector2 _bodyCenter;
-  final double radius = 2;
+  final double radius = 1;
   final Color _color;
 
   const CenterVertex(this._bodyCenter, [this._color = Colors.white]);
@@ -23,7 +23,7 @@ class CenterVertex extends StatelessWidget {
         height: radius * 2,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),
-          color: _color
+          color: _color,
         ),
       )
     );

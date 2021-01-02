@@ -18,27 +18,47 @@ class Box extends StatelessWidget {
 
     final fixture = box.body.getFixtureList();
     final Forge.PolygonShape polygon = fixture.getShape();
-    final transformVertices = polygon.vertices.map((v) => box.body.getWorldPoint(v));
+    final transformVertices =
+        polygon.vertices.map((v) => box.body.getWorldPoint(v));
 
     return Stack(
       children: [
         Positioned(
-            left: isDynamic ? bodyCenterXPX - ((box.width / 2) * Constants.metersToPixels) : box.body.position.x * Constants.metersToPixels,
-            bottom: isDynamic ? bodyCenterYPX - ((box.height / 2) * Constants.metersToPixels) : box.body.position.y * Constants.metersToPixels,
+            left: isDynamic
+                ? bodyCenterXPX - ((box.width / 2) * Constants.metersToPixels)
+                : box.body.position.x * Constants.metersToPixels,
+            bottom: isDynamic
+                ? bodyCenterYPX - ((box.height / 2) * Constants.metersToPixels)
+                : box.body.position.y * Constants.metersToPixels,
             child: Transform.rotate(
                 angle: -box.body.getAngle(),
                 child: GestureDetector(
                   onTapUp: box.jump,
                   onLongPress: () => box.destroy(box),
                   child: Container(
+                    width: box.width * Constants.metersToPixels,
+                    height: box.height * Constants.metersToPixels,
+                    decoration: BoxDecoration(
                       color: box.color,
-                      width: box.width * Constants.metersToPixels,
-                      height: box.height * Constants.metersToPixels),
+                      boxShadow: isDynamic ? 
+                      [
+                        BoxShadow(
+                            color: Colors.black,
+                            spreadRadius: 0,
+                            blurRadius: 6,
+                            offset: Offset.zero
+                      ] : [],
+                    ),
+                  ),
                 ))),
-        ...(isDynamic ? [
-            ...transformVertices.map((tf) => CenterVertex(tf, Colors.yellow)).toList(),
-            CenterVertex(box.body.worldCenter)
-          ] : [])
+        // ...(isDynamic
+        //     ? [
+        //         ...transformVertices
+        //             .map((tf) => CenterVertex(tf, Colors.yellow))
+        //             .toList(),
+        //         CenterVertex(box.body.worldCenter)
+        //       ]
+        //     : [])
       ],
     );
   }

@@ -8,7 +8,7 @@ import 'package:kicked_it_by_mistake/utils/number.dart';
 import 'package:rxdart/rxdart.dart';
 
 
-const maxBoxes = 16;
+const maxBoxes = 80;
 
 class BoxController {
   BehaviorSubject<List<BoxModel>> boxes;
@@ -29,14 +29,14 @@ class BoxController {
       }
     }
 
-    final double halfBoxWidth = randomBetween(20, 60) * Constants.pixelsToMeters;
-    final double halfBoxHeight = randomBetween(20, 60) * Constants.pixelsToMeters;
+    final double halfBoxWidth = randomBetween(5, 15) * Constants.pixelsToMeters;
+    final double halfBoxHeight = randomBetween(5, 20) * Constants.pixelsToMeters;
     
     final boxBodyDef = BodyDef();
     boxBodyDef.type = BodyType.DYNAMIC;
     boxBodyDef.position.setFrom(Vector2(
       ((Constants.screenWidth / 2) * Constants.pixelsToMeters) - halfBoxWidth, 
-      ((Constants.screenHeight) * Constants.pixelsToMeters) - (halfBoxHeight * 2)
+      ((Constants.screenHeight) * Constants.pixelsToMeters) - (halfBoxHeight * 2) - (20 * Constants.pixelsToMeters)
     ));
 
     final boxBody = _gameEngine.world.createBody(boxBodyDef);
