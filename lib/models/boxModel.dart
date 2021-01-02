@@ -23,7 +23,7 @@ class BoxModel {
 
     var rand = Random().nextBool();
 
-    body.applyLinearImpulse(Vector2(0, 1000), pointOfImpact, true);
+    body.applyLinearImpulse(Vector2(0, 300), pointOfImpact, true);
   }
 
   void accelerate() {

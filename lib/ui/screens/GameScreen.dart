@@ -13,23 +13,18 @@ class GameScreen extends StatelessWidget {
     final worldController = Provider.of<WorldController>(context);
     final boxController = Provider.of<BoxController>(context);
 
-    return Stack(
-      children: [
-        Box(worldController.floor),
-        Box(worldController.leftWall),
-        Box(worldController.rightWall),
-        Box(worldController.roof),
-        StreamBuilder(
+    return Stack(children: [
+      Box(worldController.floor),
+      Box(worldController.leftWall),
+      Box(worldController.rightWall),
+      Box(worldController.roof),
+      StreamBuilder(
           stream: gameEngine.gameLoop,
-          builder: (_, __) =>
-            boxController.boxes.value.isEmpty ? SizedBox.shrink() :
-            Stack(
-              children: boxController.boxes.value.map((b) =>
-                Box(b)
-              ).toList()
-            )
-        )
-      ]
-    );
+          builder: (_, __) => boxController.boxes.value.isEmpty
+              ? SizedBox.shrink()
+              : Stack(
+                  children:
+                      boxController.boxes.value.map((b) => Box(b)).toList())),
+    ]);
   }
 }

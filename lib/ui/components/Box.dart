@@ -40,14 +40,15 @@ class Box extends StatelessWidget {
                     height: box.height * Constants.metersToPixels,
                     decoration: BoxDecoration(
                       color: box.color,
-                      boxShadow: isDynamic ? 
-                      [
-                        BoxShadow(
-                            color: Colors.black,
-                            spreadRadius: 0,
-                            blurRadius: 6,
-                            offset: Offset.zero
-                      ] : [],
+                      boxShadow: isDynamic
+                          ? [
+                              BoxShadow(
+                                  color: Colors.black,
+                                  spreadRadius: 0,
+                                  blurRadius: 6,
+                                  offset: Offset.zero)
+                            ]
+                          : [],
                     ),
                   ),
                 ))),

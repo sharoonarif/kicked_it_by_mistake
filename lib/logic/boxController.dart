@@ -8,7 +8,7 @@ import 'package:kicked_it_by_mistake/utils/number.dart';
 import 'package:rxdart/rxdart.dart';
 
 
-const maxBoxes = 80;
+const maxBoxes = 40;
 
 class BoxController {
   BehaviorSubject<List<BoxModel>> boxes;
