@@ -21,8 +21,6 @@ class BoxModel {
       (Constants.screenHeight - tapDownDetails.globalPosition.dy) * Constants.pixelsToMeters,
     );
 
-    var rand = Random().nextBool();
-
     body.applyLinearImpulse(Vector2(0, 300), pointOfImpact, true);
   }
 

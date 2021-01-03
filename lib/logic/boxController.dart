@@ -7,7 +7,6 @@ import 'package:kicked_it_by_mistake/models/boxModel.dart';
 import 'package:kicked_it_by_mistake/utils/number.dart';
 import 'package:rxdart/rxdart.dart';
 
-
 const maxBoxes = 40;
 
 class BoxController {
